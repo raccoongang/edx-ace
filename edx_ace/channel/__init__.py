@@ -193,4 +193,15 @@ def get_channel_for_message(channel_type, message):
         # Else the normal path: use the preferred channel for this message type
         return possible_channels[0]
 
+    elif channel_type == ChannelType.PUSH:
+        try:
+            possible_channel = channels_map.get_channel_by_name(
+                channel_type,
+                settings.ACE_CHANNEL_DEFAULT_PUSH
+            )
+        except KeyError:
+            return channels_map.get_default_channel(channel_type)
+
+        return possible_channel
+
     return channels_map.get_default_channel(channel_type)

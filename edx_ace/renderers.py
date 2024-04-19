@@ -8,6 +8,7 @@ associated with it, which is used to render messages for all
 import attr
 
 from django.template import loader
+from django.template.loader import render_to_string
 
 
 class AbstractRenderer:
@@ -81,3 +82,21 @@ class EmailRenderer(AbstractRenderer):
     A renderer for :attr:`.ChannelType.EMAIL` channels.
     """
     rendered_message_cls = RenderedEmail
+
+
+@attr.s
+class RenderedPushNotification:
+    """
+    Encapsulates all values needed to send a :class:`.Message`
+    over an :attr:`.ChannelType.PUSH`.
+    """
+
+    subject = attr.ib()
+    body = attr.ib()
+
+
+class PushNotificationRenderer(AbstractRenderer):
+    """
+    A renderer for :attr:`.ChannelType.PUSH` channels.
+    """
+    rendered_message_cls = RenderedPushNotification
