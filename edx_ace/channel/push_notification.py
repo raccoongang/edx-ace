@@ -69,7 +69,10 @@ class PushNotificationChannel(Channel):
         """
         Get the device tokens for a user.
         """
-        return list(GCMDevice.objects.filter(user_id=user_id).values_list('registration_id', flat=True))
+        return list(GCMDevice.objects.filter(
+            user_id=user_id,
+            cloud_message_type='FCM',
+        ).values_list('registration_id', flat=True))
 
     @staticmethod
     def get_subject(rendered_message: RenderedPushNotification) -> str:
