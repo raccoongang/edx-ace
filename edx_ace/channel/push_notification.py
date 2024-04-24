@@ -9,7 +9,7 @@ from django.conf import settings
 from push_notifications.gcm import send_message, dict_to_fcm_message
 from push_notifications.models import GCMDevice
 
-from edx_ace.channel import Channel,ChannelType
+from edx_ace.channel import Channel, ChannelType
 from edx_ace.errors import FatalChannelDeliveryError
 from edx_ace.message import Message
 from edx_ace.renderers import RenderedPushNotification
@@ -46,16 +46,17 @@ class PushNotificationChannel(Channel):
             return
 
         for token in device_tokens:
-            self.send_message(token, rendered_message)
+            self.send_message(message, token, rendered_message)
 
-    def send_message(self, token: str, rendered_message: RenderedPushNotification) -> None:
+    def send_message(self, message: Message, token: str, rendered_message: RenderedPushNotification) -> None:
         """
         Send a push notification to a device by token.
         """
         notification_data = {
             'title': self.get_subject(rendered_message),
             'body': rendered_message.body,
-            'notification_key': token
+            'notification_key': token,
+            'click_action': message.context.get('click_action'),
         }
         message = dict_to_fcm_message(notification_data)
         try:

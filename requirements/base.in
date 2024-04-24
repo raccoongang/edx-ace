@@ -10,4 +10,4 @@ stevedore>=1.10.0
 
 firebase-admin==5.0.0
 
--e git+https://github.com/jazzband/django-push-notifications.git@9e6b9af04422f442f4af27fa2d1fde14da707a2e#egg=django_push_notifications
+-e git+https://github.com/jazzband/django-push-notifications.git@906fe52058bad36b6af2bb292fdb9292ccaa94e5#egg=django_push_notifications
