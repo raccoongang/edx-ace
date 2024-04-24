@@ -8,7 +8,6 @@ associated with it, which is used to render messages for all
 import attr
 
 from django.template import loader
-from django.template.loader import render_to_string
 
 
 class AbstractRenderer:

@@ -52,12 +52,12 @@ class PushNotificationChannel(Channel):
         """
         Send a push notification to a device by token.
         """
-        notif_data = {
+        notification_data = {
             'title': self.get_subject(rendered_message),
             'body': rendered_message.body,
             'notification_key': token
         }
-        message = dict_to_fcm_message(notif_data)
+        message = dict_to_fcm_message(notification_data)
         try:
             send_message(token, message, settings.FCM_APP_NAME)
         except Exception as e:
