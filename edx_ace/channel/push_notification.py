@@ -53,10 +53,10 @@ class PushNotificationChannel(Channel):
         Send a push notification to a device by token.
         """
         notification_data = {
-            'title': self.get_subject(rendered_message),
-            'body': rendered_message.body,
+            'title': self.sanitize_html(rendered_message.subject),
+            'body': self.sanitize_html(rendered_message.body),
             'notification_key': token,
-            'click_action': message.context.get('click_action'),
+            **message.context.get('push_notification_extra_context', {}),
         }
         message = dict_to_fcm_message(notification_data)
         try:
@@ -73,11 +73,12 @@ class PushNotificationChannel(Channel):
         return list(GCMDevice.objects.filter(
             user_id=user_id,
             cloud_message_type='FCM',
+            active=True,
         ).values_list('registration_id', flat=True))
 
     @staticmethod
-    def get_subject(rendered_message: RenderedPushNotification) -> str:
+    def sanitize_html(html_str: str) -> str:
         """
         Compress spaces and remove newlines to make it easier to author templates.
         """
-        return re.sub('\\s+', ' ', rendered_message.subject, re.UNICODE).strip()
+        return re.sub('\\s+', ' ', html_str, re.UNICODE).strip()
