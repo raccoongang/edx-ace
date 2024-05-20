@@ -4,9 +4,9 @@
 #
 #    make upgrade
 #
--e git+https://github.com/jazzband/django-push-notifications.git@906fe52058bad36b6af2bb292fdb9292ccaa94e5#egg=django_push_notifications
+-e git+https://github.com/jazzband/django-push-notifications.git@0f7918136b5e6a9aec83d6513aad5b0f12143a9f#egg=django_push_notifications
     # via -r requirements/base.in
-accessible-pygments==0.0.4
+accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==0.7.16
     # via sphinx
@@ -14,7 +14,7 @@ asgiref==3.8.1
     # via django
 attrs==23.2.0
     # via -r requirements/base.in
-babel==2.14.0
+babel==2.15.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
@@ -26,9 +26,13 @@ cachetools==5.3.3
     # via google-auth
 certifi==2024.2.2
     # via requests
+cffi==1.16.0
+    # via cryptography
 charset-normalizer==3.3.2
     # via requests
-django==4.2.11
+cryptography==42.0.7
+    # via pyjwt
+django==4.2.13
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -42,16 +46,16 @@ docutils==0.20.1
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-firebase-admin==5.0.0
+firebase-admin==6.5.0
     # via -r requirements/base.in
-google-api-core[grpc]==1.34.1
+google-api-core[grpc]==2.19.0
     # via
     #   firebase-admin
     #   google-api-python-client
     #   google-cloud-core
     #   google-cloud-firestore
     #   google-cloud-storage
-google-api-python-client==2.126.0
+google-api-python-client==2.129.0
     # via firebase-admin
 google-auth==2.29.0
     # via
@@ -69,7 +73,7 @@ google-cloud-core==2.4.1
     #   google-cloud-storage
 google-cloud-firestore==2.16.0
     # via firebase-admin
-google-cloud-storage==2.14.0
+google-cloud-storage==2.16.0
     # via firebase-admin
 google-crc32c==1.5.0
     # via
@@ -81,11 +85,11 @@ googleapis-common-protos==1.63.0
     # via
     #   google-api-core
     #   grpcio-status
-grpcio==1.62.1
+grpcio==1.63.0
     # via
     #   google-api-core
     #   grpcio-status
-grpcio-status==1.48.2
+grpcio-status==1.62.2
     # via google-api-core
 httplib2==0.22.0
     # via
@@ -103,11 +107,11 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==5.3.0
     # via keyring
-jaraco-functools==4.0.0
+jaraco-functools==4.0.1
     # via keyring
-jinja2==3.1.3
+jinja2==3.1.4
     # via sphinx
-keyring==25.1.0
+keyring==25.2.1
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -132,8 +136,10 @@ pbr==6.0.0
 pkginfo==1.10.0
     # via twine
 proto-plus==1.23.0
-    # via google-cloud-firestore
-protobuf==3.20.3
+    # via
+    #   google-api-core
+    #   google-cloud-firestore
+protobuf==4.25.3
     # via
     #   google-api-core
     #   google-cloud-firestore
@@ -146,9 +152,11 @@ pyasn1==0.6.0
     #   rsa
 pyasn1-modules==0.4.0
     # via google-auth
+pycparser==2.22
+    # via cffi
 pydata-sphinx-theme==0.15.2
     # via sphinx-book-theme
-pygments==2.17.2
+pygments==2.18.0
     # via
     #   accessible-pygments
     #   doc8
@@ -156,6 +164,8 @@ pygments==2.17.2
     #   readme-renderer
     #   rich
     #   sphinx
+pyjwt[crypto]==2.8.0
+    # via firebase-admin
 pyparsing==3.1.2
     # via httplib2
 python-dateutil==2.9.0.post0
@@ -195,7 +205,7 @@ snowballstemmer==2.2.0
     # via sphinx
 soupsieve==2.5
     # via beautifulsoup4
-sphinx==7.3.5
+sphinx==7.3.7
     # via
     #   -r requirements/doc.in
     #   pydata-sphinx-theme
@@ -220,7 +230,7 @@ stevedore==5.2.0
     # via
     #   -r requirements/base.in
     #   doc8
-twine==5.0.0
+twine==5.1.0
     # via -r requirements/doc.in
 typing-extensions==4.11.0
     # via pydata-sphinx-theme
@@ -230,5 +240,5 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
-zipp==3.18.1
+zipp==3.18.2
     # via importlib-metadata
