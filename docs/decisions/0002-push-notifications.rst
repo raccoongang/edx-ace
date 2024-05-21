@@ -3,7 +3,7 @@ Implement Push Notification Channel
 
 Status
 ------
-Accepted
+Proposed
 
 Context
 ------
@@ -53,4 +53,9 @@ Negative:
 
 Rejection
 ------
-
+It was decided not to expand the codebase unnecessarily and not to independently implement
+models and views for storing user device tokens, mechanisms for sending push notifications,
+or mechanisms for deactivating inactive tokens, as all of this functionality is already
+available in the `django-push-notification` package. Therefore, it is better for edx-ace to
+use the existing `GCMDevice` model, and on the edx-platform side, add the `GCMDeviceViewSet`
+view to allow mobile devices to send their tokens.
