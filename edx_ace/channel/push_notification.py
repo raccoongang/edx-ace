@@ -78,7 +78,8 @@ class PushNotificationChannel(Channel):
         This APNSConfig must be set to notifications for Firebase to send push notifications to iOS devices.
         Notification has default priority and visibility settings, described in Apple's documentation.
         """
-        aps = Aps(alert=ApsAlert(**notification_data), content_available=True, sound='default')
+        apns_alert = ApsAlert(title=notification_data['title'], body=notification_data['body'])
+        aps = Aps(alert=apns_alert, content_available=True, sound='default')
         return APNSConfig(headers={'apns-priority': '5', 'apns-push-type': 'alert'}, payload=APNSPayload(aps))
 
     @staticmethod
