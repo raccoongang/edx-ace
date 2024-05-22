@@ -16,6 +16,8 @@ from edx_ace.message import Message
 from edx_ace.renderers import RenderedPushNotification
 
 LOG = logging.getLogger(__name__)
+APNS_DEFAULT_PRIORITY = '5'
+APNS_DEFAULT_PUSH_TYPE = 'alert'
 
 
 class PushNotificationChannel(Channel):
@@ -77,10 +79,14 @@ class PushNotificationChannel(Channel):
 
         This APNSConfig must be set to notifications for Firebase to send push notifications to iOS devices.
         Notification has default priority and visibility settings, described in Apple's documentation.
+        (https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns)
         """
         apns_alert = ApsAlert(title=notification_data['title'], body=notification_data['body'])
         aps = Aps(alert=apns_alert, content_available=True, sound='default')
-        return APNSConfig(headers={'apns-priority': '5', 'apns-push-type': 'alert'}, payload=APNSPayload(aps))
+        return APNSConfig(
+            headers={'apns-priority': APNS_DEFAULT_PRIORITY, 'apns-push-type': APNS_DEFAULT_PUSH_TYPE},
+            payload=APNSPayload(aps)
+        )
 
     @staticmethod
     def get_user_device_tokens(user_id: int) -> list:
