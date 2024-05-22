@@ -6,6 +6,7 @@ import re
 
 from django.conf import settings
 
+from firebase_admin.messaging import Aps, ApsAlert, APNSConfig, APNSPayload
 from push_notifications.gcm import send_message, dict_to_fcm_message
 from push_notifications.models import GCMDevice
 
@@ -59,11 +60,26 @@ class PushNotificationChannel(Channel):
             **message.context.get('push_notification_extra_context', {}),
         }
         message = dict_to_fcm_message(notification_data)
+        # Note: By default dict_to_fcm_message does not support APNS configuration,
+        #   only Android configuration, so we need to collect and set it manually.
+        apns_config = self.collect_apns_config(notification_data)
+        message.apns = apns_config
         try:
             send_message(token, message, settings.FCM_APP_NAME)
         except Exception as e:
             LOG.exception(f'Failed to send push notification to {token}')
             raise FatalChannelDeliveryError(f'Failed to send push notification to {token}')
+
+    @staticmethod
+    def collect_apns_config(notification_data: dict) -> APNSConfig:
+        """
+        Collect APNS configuration with payload for the push notification.
+
+        This APNSConfig must be set to notifications for Firebase to send push notifications to iOS devices.
+        Notification has default priority and visibility settings, described in Apple's documentation.
+        """
+        aps = Aps(alert=ApsAlert(**notification_data), content_available=True, sound='default')
+        return APNSConfig(headers={'apns-priority': '5', 'apns-push-type': 'alert'}, payload=APNSPayload(aps))
 
     @staticmethod
     def get_user_device_tokens(user_id: int) -> list:
