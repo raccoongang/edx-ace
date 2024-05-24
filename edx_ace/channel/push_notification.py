@@ -82,7 +82,7 @@ class PushNotificationChannel(Channel):
         (https://developer.apple.com/documentation/usernotifications/sending-notification-requests-to-apns)
         """
         apns_alert = ApsAlert(title=notification_data['title'], body=notification_data['body'])
-        aps = Aps(alert=apns_alert, content_available=True, sound='default')
+        aps = Aps(alert=apns_alert, sound='default')
         return APNSConfig(
             headers={'apns-priority': APNS_DEFAULT_PRIORITY, 'apns-push-type': APNS_DEFAULT_PUSH_TYPE},
             payload=APNSPayload(aps)
